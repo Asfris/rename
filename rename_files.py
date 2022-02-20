@@ -17,15 +17,15 @@ class Arg:
 
 
 class Main (Arg):
-    NEW_FILES_NAME: str = "test"
+    NEW_FILES_NAME: str = "file"
 
     # Creates Main object
     # Has limit length for args
     def __init__(self) -> None:
         Arg.__init__(self)
 
-        if self.args_length_check(2) == False:
-            print("Error")
+        if self.args_length_check(3) == False:
+            print("Recived args lenght is not correct!")
             exit()
 
     def get_first_arg(self) -> str:
@@ -34,6 +34,9 @@ class Main (Arg):
     def get_second_arg(self) -> str:
         return self.args[2]
 
+    def get_new_files_name(self) -> str:
+        return self.args[3]
+    
     def get_files_sorted(self, folder: str) -> list[str]:
         files = os.listdir(folder)
         files.sort()
@@ -44,6 +47,15 @@ class Main (Arg):
         files = self.get_files_sorted(target_folder)
         index: int = 1
 
+        # Check if new_folder is exist
+        if not os.path.exists(new_folder):
+            print("Target older is not exist. Creating.")
+            #Create folder
+            try:
+                os.makedirs(new_folder)
+            except:
+                print("Cant create target folder!")
+            
         for file in files:
             extention = os.path.splitext(file)[1]
             newName = new_folder+"/" + \
