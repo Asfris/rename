@@ -17,8 +17,6 @@ class Arg:
 
 
 class Main (Arg):
-    NEW_FILES_NAME: str = "file"
-
     # Creates Main object
     # Has limit length for args
     def __init__(self) -> None:
@@ -55,11 +53,13 @@ class Main (Arg):
                 os.makedirs(new_folder)
             except:
                 print("Cant create target folder!")
-            
+
+
+        new_files_name = self.get_new_files_name()
         for file in files:
             extention = os.path.splitext(file)[1]
             newName = new_folder+"/" + \
-                self.NEW_FILES_NAME+str(index)+extention
+                new_files_name+str(index)+extention
             shutil.copy(target_folder+"/"+file, newName)
 
             index += 1
